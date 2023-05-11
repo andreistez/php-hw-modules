@@ -11,7 +11,8 @@ class Router implements IRouter
 	protected int $baseShift;
 	protected array $routes = [];
 
-	public function __construct(string $baseUrl = ''){
+	public function __construct( string $baseUrl = '' )
+	{
 		$this->baseUrl = $baseUrl;
 		$this->baseShift = strlen($this->baseUrl);
 	}

@@ -4,6 +4,6 @@ namespace System\Contracts;
 
 interface IModule
 {
-	public function registerRoutes( $router ): void;
+	public function registerRoutes( IRouter $router ): void;
 }
 

@@ -2,17 +2,19 @@
 
 include_once('init.php');
 
+use System\ModulesDispatcher;
 use System\Router;
-use Modules\Articles\Controllers\Index as ArticlesC;
+use Modules\Articles\Module as Articles;
 use System\Exceptions\Exc404;
 
 const BASE_URL = '/hw4/';
 
 try {
-	$router = new Router( BASE_URL );
-	$router->addRoute( '', ArticlesC::class );
-	$router->addRoute( 'article/1', ArticlesC::class, 'item' );
-	$router->addRoute( 'article/2', ArticlesC::class, 'item' ); // e t.c post/99, post/100 lol :))
+	$modules	= new ModulesDispatcher();
+	$router		= new Router( BASE_URL );
+
+	$modules->add( new Articles() );
+	$modules->registerRoutes( $router );
 
 	$uri			= $_SERVER['REQUEST_URI'];
 	$activeRoute	= $router->resolvePath( $uri );
