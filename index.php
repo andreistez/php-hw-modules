@@ -2,22 +2,31 @@
 
 include_once('init.php');
 
-const BASE_URL = '/test/hw4/';
-$router = new Router(BASE_URL);
+use System\Router;
+use Modules\Articles\Controllers\Index as ArticlesC;
+use System\Exceptions\Exc404;
 
-$router->addRoute('', 'ArticlesController');
-$router->addRoute('article/1', 'ArticlesController', 'item');
-$router->addRoute('article/2', 'ArticlesController', 'item'); // e t.c post/99, post/100 lol :))
+const BASE_URL = '/hw4/';
 
-$uri = $_SERVER['REQUEST_URI'];
-$activeRoute = $router->resolvePath($uri);
+try {
+	$router = new Router( BASE_URL );
+	$router->addRoute( '', ArticlesC::class );
+	$router->addRoute( 'article/1', ArticlesC::class, 'item' );
+	$router->addRoute( 'article/2', ArticlesC::class, 'item' ); // e t.c post/99, post/100 lol :))
 
-$c = $activeRoute['controller'];
-$m = $activeRoute['method'];
+	$uri			= $_SERVER['REQUEST_URI'];
+	$activeRoute	= $router->resolvePath( $uri );
+	$c				= $activeRoute['controller'];
+	$m				= $activeRoute['method'];
 
-$c->$m();
-$html = $c->render();
-echo $html;
+	$c->$m();
+	$html = $c->render();
+	echo $html;
+}	catch( Exc404 $error ){
+	echo '404 - not found.';
+}	catch( Throwable $error ){
+	echo 'error: ' . $error->getMessage();
+}
 ?>
 <hr>
 Menu

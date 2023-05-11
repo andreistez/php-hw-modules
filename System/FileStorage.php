@@ -1,5 +1,9 @@
 <?php
 
+namespace System;
+
+use System\Contracts\IStorage;
+
 class FileStorage implements IStorage{
 	protected array $records = [];
 	protected int $ai = 0;

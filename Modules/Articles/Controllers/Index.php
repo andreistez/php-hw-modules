@@ -1,6 +1,12 @@
 <?php
 
-class ArticlesController implements IController{
+namespace Modules\Articles\Controllers;
+
+use System\FileStorage;
+use System\Contracts\IController;
+use System\Contracts\IStorage;
+
+class Index implements IController{
 	protected string $title = '';
 	protected string $content = '';
 	protected array $env;
