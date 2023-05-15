@@ -29,9 +29,4 @@ try {
 }	catch( Throwable $error ){
 	echo 'error: ' . $error->getMessage();
 }
-?>
-<hr>
-Menu
-<a href="<?=BASE_URL?>">Home</a>
-<a href="<?=BASE_URL?>article/1">Art 1</a>
-<a href="<?=BASE_URL?>article/2">Art 2</a>
+

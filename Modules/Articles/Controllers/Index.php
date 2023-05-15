@@ -2,22 +2,17 @@
 
 namespace Modules\Articles\Controllers;
 
+use Modules\_base\Controller as BaseController;
 use System\FileStorage;
-use System\Contracts\IController;
 use System\Contracts\IStorage;
+use System\Template;
 
-class Index implements IController{
-	protected string $title = '';
-	protected string $content = '';
-	protected array $env;
+class Index extends BaseController
+{
 	protected IStorage $storage;
 
 	public function __construct(){
 		$this->storage = FileStorage::getInstance('db/articles.txt'); // yes-yes, without DI it is trash
-	}
-
-	public function setEnviroment(array $urlParams) : void{
-		$this->env = $urlParams;
 	}
 
 	public function index(){
@@ -30,13 +25,6 @@ class Index implements IController{
 		$id = (int)$this->env[1];
 		$article = $this->storage->get($id);
 
-		$this->content = "
-			<h2>{$article['title']}</h2>
-			<div>{$article['content']}</div>
-		";
-	}
-
-	public function render() : string{
-		return "<h1>{$this->title}</h1><div>{$this->content}</div>";
+		$this->content = Template::render( __DIR__ . '/../Views/Article.php', ['title' => $article['title'], 'content' => $article['content']] );
 	}
 }

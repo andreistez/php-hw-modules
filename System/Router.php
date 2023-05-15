@@ -32,7 +32,7 @@ class Router implements IRouter
 		$route = $this->findPath($relativeUrl);
 		$params = explode('/', $relativeUrl);
 		$controller = new $route['c']();
-		$controller->setEnviroment($params);
+		$controller->setEnvironment($params);
 		// var_dump($controller instanceof IController); // hmmmm
 
 		return [
